@@ -1,5 +1,3 @@
-using System;
-
 # -- | Function head
 function head($list) {
 	return $list | Select-Object -first 1
