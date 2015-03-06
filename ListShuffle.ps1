@@ -12,7 +12,7 @@ function tail($list) {
 
 # -- | The main entry point.
 function main {
-    Console.Write("Welcome to ListShuffle!");
+    "Welcome to ListShuffle!";
 }
 
 
