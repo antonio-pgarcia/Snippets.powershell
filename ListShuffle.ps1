@@ -65,7 +65,7 @@ function _shuffle($r, $l1, $l2) {
 	#write-host "shuffle: (" $r ") " (snd $t)  
 	$t = pop $r $l1
 	if($len -eq 0) { return $l2 }
-	else { _shuffle (myrandom 0 ($len-1) $r) (snd $t) @($l2 + (fst $t) ) }
+	else { _shuffle (myrandom 0 ($len-1) $r) $t.Item2 @($l2 + (fst $t) ) }
 }
 
 # -- | The main entry point.
