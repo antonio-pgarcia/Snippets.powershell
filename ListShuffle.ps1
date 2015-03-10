@@ -10,12 +10,12 @@ function tail($list) {
 
 # -- | Function fst
 function fst($l) {
-	return $t.Item1
+	return [object]$l.Item1
 }
 
 # -- | Function snd
 function snd($l) {
-	return $t.Item2
+	return [object[]]$l.Item2
 }
 
 # -- | Function length
@@ -32,6 +32,7 @@ function drop($i, $l) {
 
 # -- | Auxiliary recursive drop entry point
 function _drop($i, $l1, $p, $l2) {
+	 [object[]]$l1 = [object[]]$l1
 	 if((length $l2) -eq (length $l1)-1) {return $l2}
 	 else {
 		$p = if($p -eq $i) {($p+1)} else {$p}
@@ -41,8 +42,8 @@ function _drop($i, $l1, $p, $l2) {
 
 # -- | Pop nth element from list and returns a tuple
 function pop($i, $l) {
+	[object[]]$l = [object[]]$l
 	if($l -eq $null) {return New-Object 'Tuple[int,int[]]'($null,$())}
-	write-host "pop: (" $i ") " $l  
 	$e = $l[$i]
 	$ll = drop $i $l
 	return New-Object 'Tuple[int,int[]]'($e,$ll)
@@ -62,18 +63,17 @@ function shuffle($l) {
 # -- | Auxiliary shuffle
 function _shuffle($r, $l1, $l2) {
 	$len = (length $l1) 
-	#write-host "shuffle: (" $r ") " (snd $t)  
 	$t = pop $r $l1
 	if($len -eq 0) { return $l2 }
-	else { _shuffle (myrandom 0 ($len-1) $r) $t.Item2 @($l2 + (fst $t) ) }
+	else { _shuffle (myrandom 0 ($len-1) $r) (snd $t) ($l2 + (fst $t)) }
 }
 
 # -- | The main entry point.
 function main {
     "Welcome to ListShuffle!";
-    $l = 1..10
-    shuffle $l
+    $l = 1..20
+    $l = shuffle $l
+    write-host "["([String]::Join(',',$l))"]";
 }
-
 
 main
